@@ -20,8 +20,9 @@ public class Pizza {
 	public String code;
 	public String designation;
 	public double prix;
-
+	
 	public static int compteur; // sera amené à donne un id unique pr chaque pizza
+	
 
 	// génération du constructeur
 	
@@ -32,7 +33,7 @@ public class Pizza {
 	 * @param prix : ex : Prix : 9,20 euros
 	 */
 	
-	public Pizza(int id, String code, String designation, double prix) {
+	public Pizza(String code, String designation, double prix) {
 		this.id = ++compteur; // incrémentation de l'id en fonction de la liste
 		this.code = code;
 		this.designation = designation;
@@ -42,7 +43,11 @@ public class Pizza {
 	// méthode toString
 	
 	public String toString() {
-		return "Pizza [id=" + id + ", code=" + code + ", designation=" + designation + ", prix=" + prix + "]";
+		return code + "-> " + designation + " ("+ prix +")";
+		
+	// méthode Ajout Pizza
+		
+		
 	}
 
 	//getter/setter
