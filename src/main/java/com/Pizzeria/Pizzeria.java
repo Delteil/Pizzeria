@@ -68,25 +68,39 @@ public class Pizzeria {
 
 				System.out.println();
 			}
-//			if (choix == 3) { System.out.println("Mise à jour d’une pizza");
-//			 
-//			 String newCode = ""; 
-//			 String newDesignation = ""; 
-//			 double newPrix = 0;
-//			 
-//			  System.out.println("Veuillez choisir le code de la pizza à modifier.");
-//			  code = sc.nextLine();
-//			  System.out.println("Veuillez saisir le nouveau code");
-//			  newCode = sc.nextLine(); 
-//			  code = newCode; code.setCode(code.getCode());
-//			  System.out.println("Veuillez saisir le nouveau nom (sans espace)");
-//			  designation = sc.nextLine();
-//			  designation = newDesignation;
-//			  designation.setDesignation(designation.getDesignation());
-//			  System.out.println("Veuillez saisir le nouveau prix"); newPrix =
-//			 sc.nextDouble(); prix = newPrix; prix.setPrix(prix.getPrix());
-//			 
-//			 System.out.println();
+			if (choix == 3) {
+
+				System.out.println("Mise à jour d’une pizza");
+
+				String newCode = "";
+				String newDesignation = "";
+				double newPrix = 0;
+
+				sc.nextLine(); // ajouter...pb scanner
+				System.out.println("Veuillez choisir le code de la pizza à modifier.");
+				code = sc.nextLine();
+
+				for (Pizza pizzaListe : pizzas) {
+
+					if (pizzaListe.getCode().equals(code)) {
+
+						System.out.println("Veuillez saisir le nouveau code");
+						newCode = sc.nextLine();
+
+						System.out.println("Veuillez saisir le nouveau nom (sans espace)");
+						newDesignation = sc.nextLine();
+
+						System.out.println("Veuillez saisir le nouveau prix");
+						newPrix = sc.nextDouble();
+
+						pizzaListe.setCode(newCode);
+						pizzaListe.setDesignation(newDesignation);
+						pizzaListe.setPrix(newPrix);
+
+					}
+					System.out.println(pizzaListe.toString());
+				}
+				System.out.println();
 //			
 //		}
 //		if (choix == 4) {
@@ -102,7 +116,8 @@ public class Pizzeria {
 //			System.out.println("Au revoir et à bientôt");
 //
 //		}
-		}
+			}
 
+		}
 	}
 }
