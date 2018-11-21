@@ -7,7 +7,6 @@ import classe.pizza.Pizza; // importation de la classe Pizza
 public class Pizzeria {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 
 		int choix = 0;
@@ -41,6 +40,7 @@ public class Pizzeria {
 			}
 			if (choix == 2) {
 				System.out.println("Ajout d’une nouvelle pizza");
+
 				sc.nextLine(); // ajouter...pb scanner
 				System.out.println("Veuillez saisir le code");
 				code = sc.nextLine();
@@ -50,6 +50,8 @@ public class Pizzeria {
 				prix = sc.nextDouble();
 
 				Pizza pizzaNew = new Pizza(code, designation, prix);
+
+				// création d'un tableau temporaire plus grand
 
 				Pizza[] pizzaTemp = new Pizza[pizzas.length + 1];
 
@@ -101,23 +103,47 @@ public class Pizzeria {
 					System.out.println(pizzaListe.toString());
 				}
 				System.out.println();
-//			
-//		}
-//		if (choix == 4) {
-//			System.out.println("Suppression d’une pizza");
-//
-//			System.out.println("Veuillez choisir le code de la pizza à supprimer :");
-//			code = sc.nextLine();
-//
-//			System.out.println();
-//
-//		}
-//		if (choix == 99) {
-//			System.out.println("Au revoir et à bientôt");
-//
-//		}
-			}
 
+			}
+			if (choix == 4) {
+				System.out.println("Suppression d’une pizza");
+
+				sc.nextLine();
+				System.out.println("Veuillez choisir le code de la pizza à supprimer :");
+				String codeASupprimer = sc.nextLine();
+
+				// creation d'un tableau temporaire2 plus petit que l'ancien
+
+				Pizza[] pizzaTemp2 = new Pizza[pizzas.length - 1];
+
+				// ajout dans tableau temp2 les pizzas que l'on garde
+
+				int indiceTemp = 0; // création d'un indiceTemporaire pour le tableauTemp
+				for (Pizza pizza : pizzas) {
+
+					if (!pizza.getCode().equals(codeASupprimer)) { // nb, l'inverse de la condition avec ! en debut
+
+						pizzaTemp2[indiceTemp] = pizza;
+
+// incrémentation de l'indiceTemp pour suivre l'incrémentation de l'indice i du tableau pizza, malgré la suppression de la ligne et donc de l'indiceTemp
+						indiceTemp++;
+					}
+
+					pizzas = pizzaTemp2;
+				}
+
+				for (Pizza pizza : pizzas) {
+
+					System.out.println(pizza.toString());
+				}
+				System.out.println();
+
+			}
+			if (choix == 99) {
+				System.out.println("Au revoir et à bientôt");
+
+			}
 		}
+
 	}
 }
