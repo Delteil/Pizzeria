@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="javadoc">
-    <target name="javadoc">
-        <javadoc access="public" additionalparam="-encoding utf8 -docencoding utf8 -charset utf8 " author="true" classpath="C:\Users\formation\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;target/test-classes" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="classe.pizza" source="1.5" sourcefiles="src/main/java/com/Pizzeria/PizzeriaAdminConsole.java" sourcepath="src/main/java;src/test/java" splitindex="true" use="true" version="true"/>
-    </target>
-</project>
