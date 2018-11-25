@@ -1,13 +1,18 @@
 package classe.pizza;
 
+import java.util.ArrayList;
+
 public class PizzaMemDao implements IpizzaDao {
 
 	Pizza[] pizzas = { new Pizza("PEP", "Peperoni", 12.50), new Pizza("MAR", "Margherita", 14.00),
 			new Pizza("REIN", "La Reine", 11.50), new Pizza("FRO", "La 4 Fromage", 12.00),
 			new Pizza("CAN", "La Cannibale", 12.50), new Pizza("SAV", "La Savoyarde", 13.00),
 			new Pizza("ORI", "L'Orientale", 13.50), new Pizza("IND", "L'Indienne", 14.00) };
-
-	public void afficheTableau() {
+	
+	ArrayList<Pizza> list = new ArrayList<Pizza>();
+	
+	
+	public void afficheListe() {
 
 		for (Pizza pizza : pizzas) {
 
@@ -15,9 +20,9 @@ public class PizzaMemDao implements IpizzaDao {
 		}
 	}
 
-	public Pizza[] findAllPizzas() {
+	public ArrayList<Pizza> findAllPizzas() {
 
-		return pizzas;
+		return list;
 	}
 
 	public void updatePizza(String codePizza, Pizza pizzaUpdate) {
@@ -84,5 +89,15 @@ public class PizzaMemDao implements IpizzaDao {
 			pizzas = pizzaTemp2;
 		}
 
+	}
+
+	public void saveNewPizza(Pizza pizza) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean pizzaExists(String codePizza) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

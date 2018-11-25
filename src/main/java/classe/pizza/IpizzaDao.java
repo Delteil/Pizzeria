@@ -1,19 +1,36 @@
 package classe.pizza;
 
+import java.util.ArrayList;
+
 public interface IpizzaDao {
-	
-	
 
-	public Pizza[] findAllPizzas();
+	// TP10
 
-	public void updatePizza(String codePizza, Pizza pizza);
+//	public Pizza[] findAllPizzas();
+//
+//	public void updatePizza(String codePizza, Pizza pizza);
+//
+//	public Pizza findPizzaByCode(String codePizza);
+//
+//	public boolean isPizzaExists(String codePizza);
+//
+//	public void addPizza(Pizza pizza);
+//
+//	public void deletePizza(String codePizza);
+//	
 
-	public Pizza findPizzaByCode(String codePizza);
+	// TP11
 
-	public boolean isPizzaExists(String codePizza);
+	ArrayList<Pizza> findAllPizzas();
 
-	public void addPizza(Pizza pizza);
+	void saveNewPizza(Pizza pizza);
 
-	public void deletePizza(String codePizza);
-	
+	void updatePizza(String codePizza, Pizza pizza);
+
+	void deletePizza(String codePizza);
+
+	Pizza findPizzaByCode(String codePizza);
+
+	boolean pizzaExists(String codePizza);
+
 }

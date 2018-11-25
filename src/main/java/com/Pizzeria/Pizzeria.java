@@ -33,7 +33,7 @@ public class Pizzeria {
 
 			if (choix == 1) {
 
-				pizzaMemDao.afficheTableau();
+				pizzaMemDao.afficheListe();
 				System.out.println();
 			}
 
@@ -77,7 +77,7 @@ public class Pizzeria {
 //					System.out.println(pizzaListe.toString());
 //				}
 
-				pizzaMemDao.afficheTableau();
+				pizzaMemDao.afficheListe();
 			}
 
 			System.out.println();
@@ -109,7 +109,7 @@ public class Pizzeria {
 
 					pizzaMemDao.updatePizza(code, pizzaUpdate);
 
-					pizzaMemDao.afficheTableau();
+					pizzaMemDao.afficheListe();
 					System.out.println();
 
 				} else {
@@ -149,7 +149,7 @@ public class Pizzeria {
 
 				pizzaMemDao.deletePizza(codeASupprimer.toUpperCase());
 
-				pizzaMemDao.afficheTableau();
+				pizzaMemDao.afficheListe();
 
 				System.out.println();
 
