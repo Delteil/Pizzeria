@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import classe.pizza.Pizza; // importation de la classe Pizza
 import classe.pizza.PizzaMemDao;
+import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 
 public class Pizzeria {
 
@@ -13,6 +16,7 @@ public class Pizzeria {
 		PizzaMemDao pizzaMemDao = new PizzaMemDao();
 
 		int choix = 0;
+
 		String code = "";
 		String designation = "";
 		double prix = 0;
@@ -25,17 +29,19 @@ public class Pizzeria {
 
 		while (choix != 99) {
 
-			System.out.println("***** Pizzeria Administration *****\r\n" + "1. Lister les pizzas\r\n"
-					+ "2. Ajouter une nouvelle pizza\r\n" + "3. Mettre à jour une pizza\r\n"
-					+ "4. Supprimer une pizza\r\n" + "99. Sortir");
+			try {
 
-			choix = sc.nextInt();
+				System.out.println("***** Pizzeria Administration *****\r\n" + "1. Lister les pizzas\r\n"
+						+ "2. Ajouter une nouvelle pizza\r\n" + "3. Mettre à jour une pizza\r\n"
+						+ "4. Supprimer une pizza\r\n" + "99. Sortir");
 
-			if (choix == 1) {
+				choix = sc.nextInt();
 
-				pizzaMemDao.afficheListe();
-				System.out.println();
-			}
+				if (choix == 1) {
+
+					pizzaMemDao.afficheListe();
+					System.out.println();
+				}
 
 //				System.out.println("Liste des pizzas");
 //
@@ -43,20 +49,20 @@ public class Pizzeria {
 //
 //					System.out.println(pizzaListe.toString());
 
-			if (choix == 2) {
-				System.out.println("Ajout d’une nouvelle pizza");
+				if (choix == 2) {
+					System.out.println("Ajout d’une nouvelle pizza");
 
-				sc.nextLine(); // ajouter...pb scanner
-				System.out.println("Veuillez saisir le code");
-				code = sc.nextLine();
-				System.out.println("Veuillez saisir le nom (sans espace) :");
-				designation = sc.nextLine();
-				System.out.println("Veuillez saisir le prix :");
-				prix = sc.nextDouble();
+					sc.nextLine(); // ajouter...pb scanner
+					System.out.println("Veuillez saisir le code");
+					code = sc.nextLine();
+					System.out.println("Veuillez saisir le nom (sans espace) :");
+					designation = sc.nextLine();
+					System.out.println("Veuillez saisir le prix :");
+					prix = sc.nextDouble();
 
-				Pizza pizzaNew = new Pizza(code, designation, prix);
+					Pizza pizzaNew = new Pizza(code, designation, prix);
 
-				pizzaMemDao.addPizza(pizzaNew);
+					pizzaMemDao.addPizza(pizzaNew);
 
 //				Pizza pizzaNew = new Pizza(code, designation, prix);
 //
@@ -77,24 +83,25 @@ public class Pizzeria {
 //					System.out.println(pizzaListe.toString());
 //				}
 
-				pizzaMemDao.afficheListe();
-			}
+					pizzaMemDao.afficheListe();
+				}
 
-			System.out.println();
+				System.out.println();
 
-			if (choix == 3) {
+				if (choix == 3) {
 
-				System.out.println("Mise à jour d’une pizza");
+					System.out.println("Mise à jour d’une pizza");
 
-				String newCode = "";
-				String newDesignation = "";
-				double newPrix = 0;
+					String newCode = "";
+					String newDesignation = "";
+					double newPrix = 0;
 
-				sc.nextLine(); // ajouter...pb scanner
-				System.out.println("Veuillez choisir le code de la pizza à modifier.");
-				code = sc.nextLine();
+					sc.nextLine(); // ajouter...pb scanner
+					System.out.println("Veuillez choisir le code de la pizza à modifier.");
+					code = sc.nextLine();
 
-				if (pizzaMemDao.isPizzaExists(code.toUpperCase())) { // toUpperCase = pour entrer en minuscule
+					// if (pizzaMemDao.isPizzaExists(code.toUpperCase())) { // toUpperCase = pour
+					// entrer en Maj
 
 					System.out.println("Veuillez saisir le nouveau code");
 					newCode = sc.nextLine();
@@ -112,10 +119,10 @@ public class Pizzeria {
 					pizzaMemDao.afficheListe();
 					System.out.println();
 
-				} else {
+					// } else {
 
-					System.out.println("code pizza non valide");
-				}
+					// System.out.println("code pizza non valide");
+					// }
 
 //				for (Pizza pizzaListe : pizzas) {
 //
@@ -138,20 +145,20 @@ public class Pizzeria {
 //					System.out.println(pizzaListe.toString());
 //				}
 //				System.out.println();
-			}
+					// }
+				}
+				if (choix == 4) {
+					System.out.println("Suppression d’une pizza");
 
-			if (choix == 4) {
-				System.out.println("Suppression d’une pizza");
+					sc.nextLine();
+					System.out.println("Veuillez choisir le code de la pizza à supprimer :");
+					String codeASupprimer = sc.nextLine();
 
-				sc.nextLine();
-				System.out.println("Veuillez choisir le code de la pizza à supprimer :");
-				String codeASupprimer = sc.nextLine();
+					pizzaMemDao.deletePizza(codeASupprimer.toUpperCase());
 
-				pizzaMemDao.deletePizza(codeASupprimer.toUpperCase());
+					pizzaMemDao.afficheListe();
 
-				pizzaMemDao.afficheListe();
-
-				System.out.println();
+					System.out.println();
 
 //				// creation d'un tableau temporaire2 plus petit que l'ancien
 //
@@ -180,14 +187,19 @@ public class Pizzeria {
 //				}
 //				System.out.println();
 
+				}
+				if (choix == 99) {
+
+					System.out.println("Au revoir et à bientôt");
+
+				}
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				// e.printStackTrace();
 			}
-			if (choix == 99) {
-
-				System.out.println("Au revoir et à bientôt");
-
-			}
-
 		}
+
 		sc.close();
 
 	}
