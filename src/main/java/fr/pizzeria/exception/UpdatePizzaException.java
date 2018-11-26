@@ -1,6 +1,6 @@
 package fr.pizzeria.exception;
 
-public class UpdatePizzaException extends StockageExceptionMère {
+public class UpdatePizzaException extends StockageExceptionMere {
 
 	/**
 	 * 

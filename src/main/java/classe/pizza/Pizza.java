@@ -1,5 +1,7 @@
 package classe.pizza;
 
+import fr.pizzeria.exception.StockageExceptionMere;
+
 /**
  * @author Amandine
  * 
@@ -19,6 +21,13 @@ public class Pizza {
 	public double prix = 0;
 
 	public static int lastId = -1; // sera amené à donner un id unique pr chaque pizza
+
+	// attributs pour le controle des exceptions
+
+	public static final String CODE = "";
+	public static final String DESIGNATION = "";
+	public static final Double PRIX_MIN = 5.0;
+	public static final Double PRIX_MAX = 50.0;
 
 	// génération du constructeur
 
@@ -42,6 +51,31 @@ public class Pizza {
 		return code + "-> " + designation + " (" + prix + ")";
 		// méthode Ajout Pizza
 
+	}
+
+	// controle des exceptions
+
+	public void CheckPizza() throws StockageExceptionMere {
+
+		String message = "";
+
+		if (CODE.length() > 3 || CODE == null) {
+
+			message = "Code non renseigné ou supérieur à 3 caractères";
+		}
+
+		if (DESIGNATION != designation || DESIGNATION == null) {
+
+			message = "Champs de désignation null ou mal renseigné";
+		}
+
+		if (prix == 0 || prix > PRIX_MAX || prix < PRIX_MIN) {
+
+			message = "Prix renseigné null, trop elevé ou trop bas";
+		}
+		if (message != "") {
+			throw new StockageExceptionMere(message);
+		}
 	}
 
 	// getter/setter
