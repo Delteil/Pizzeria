@@ -1,24 +1,30 @@
 package classe.pizza;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.StockageExceptionMere;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.model.CategoriePizzaEnum;
 
 public class PizzaMemDao implements IpizzaDao {
 
-	Pizza[] pizzas = { new Pizza("PEP", "Peperoni", 12.50), new Pizza("MAR", "Margherita", 14.00),
-			new Pizza("REIN", "La Reine", 11.50), new Pizza("FRO", "La 4 Fromage", 12.00),
-			new Pizza("CAN", "La Cannibale", 12.50), new Pizza("SAV", "La Savoyarde", 13.00),
-			new Pizza("ORI", "L'Orientale", 13.50), new Pizza("IND", "L'Indienne", 14.00) };
+	Pizza[] pizzas = { new Pizza("PEP", "Peperoni", 12.50, CategoriePizzaEnum.AUTRE),
+			new Pizza("MAR", "Margherita", 14.00, CategoriePizzaEnum.FROMAGE),
+			new Pizza("REIN", "La Reine", 11.50, CategoriePizzaEnum.AUTRE),
+			new Pizza("FRO", "La 4 Fromage", 12.00, CategoriePizzaEnum.FROMAGE),
+			new Pizza("CAN", "La Cannibale", 12.50, CategoriePizzaEnum.VIANDE),
+			new Pizza("SAV", "La Savoyarde", 13.00, CategoriePizzaEnum.FROMAGE),
+			new Pizza("ORI", "L'Orientale", 13.50, CategoriePizzaEnum.VIANDE),
+			new Pizza("IND", "L'Indienne", 14.00, CategoriePizzaEnum.AUTRE) };
 
-	ArrayList<Pizza> list = new ArrayList<Pizza>();
+	ArrayList<Pizza> list = new ArrayList<Pizza>(Arrays.asList(pizzas));
 
 	public void afficheListe() {
 
-		for (Pizza pizza : pizzas) {
+		for (Pizza pizza : list) {
 
 			System.out.println(pizza);
 		}
@@ -34,20 +40,23 @@ public class PizzaMemDao implements IpizzaDao {
 		try {
 			pizzaUpdate.CheckPizza();
 
+			boolean exist = isPizzaExists(codePizza);
+			if (exist) {
+
+				Pizza pizzaOld = findPizzaByCode(codePizza);
+				// méthode Youcef : pizza[pizzaUpdate.getId()] = pizza
+				pizzaOld.setCode(pizzaUpdate.getCode());
+				pizzaOld.setDesignation(pizzaUpdate.getDesignation());
+				pizzaOld.setPrix(pizzaUpdate.getPrix());
+				pizzaOld.setCategoriePizza(pizzaUpdate.getCategoriePizza());
+
+			}
+
 		} catch (StockageExceptionMere e) {
 			throw new UpdatePizzaException(e.getMessage() + " la modification n'a pas aboutie");
 
 		}
 
-		boolean exist = isPizzaExists(codePizza);
-		if (exist) {
-
-			Pizza pizzaOld = findPizzaByCode(codePizza);
-			// méthode Youcef : pizza[pizzaUpdate.getId()] = pizza
-			pizzaOld.setCode(pizzaUpdate.getCode());
-			pizzaOld.setDesignation(pizzaUpdate.getDesignation());
-			pizzaOld.setPrix(pizzaUpdate.getPrix());
-		}
 	}
 
 	public Pizza findPizzaByCode(String codePizza) {
@@ -77,50 +86,29 @@ public class PizzaMemDao implements IpizzaDao {
 
 		try {
 			pizzaNew.CheckPizza();
+
 			list.add(pizzaNew);
+
 		} catch (StockageExceptionMere e) {
 			throw new SavePizzaException(e.getMessage() + "L'ajout de la pizza n'a pas abouti");
 
 		}
 
-//		Pizza[] pizzaTemp = new Pizza[pizzas.length + 1];
-//
-//		for (int i = 0; i < pizzas.length; i++) {
-//
-//			pizzaTemp[i] = pizzas[i];
-//
-//			pizzaTemp[pizzaTemp.length - 1] = pizzaNew;
-//
-//			pizzas = pizzaTemp;
-//
-//		}
 	}
 
 	public void deletePizza(String codePizzaASup) throws DeletePizzaException {
 
 		try {
 			Pizza piz = findPizzaByCode(codePizzaASup);
+
 			piz.CheckPizza();
+
 			list.remove(piz);
+
 		} catch (StockageExceptionMere e) {
 			throw new DeletePizzaException(e.getMessage() + " la supression a échoué");
 
 		}
-
-//		Pizza[] pizzaTemp2 = new Pizza[pizzas.length - 1];
-//
-//		int indiceTemp = 0;
-//
-//		for (Pizza pizza : pizzas) {
-//
-//			if (!pizza.getCode().equals(codePizzaASup.toUpperCase())) {
-//
-//				pizzaTemp2[indiceTemp] = pizza;
-//				indiceTemp++;
-//			}
-//
-//			pizzas = pizzaTemp2;
-//		}
 
 	}
 

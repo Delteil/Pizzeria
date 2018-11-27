@@ -1,6 +1,7 @@
 package classe.pizza;
 
 import fr.pizzeria.exception.StockageExceptionMere;
+import fr.pizzeria.model.CategoriePizzaEnum;
 
 /**
  * @author Amandine
@@ -19,6 +20,7 @@ public class Pizza {
 	public String code = null;
 	public String designation = null;
 	public double prix = 0;
+	private CategoriePizzaEnum categoriePizza; // ajout de l'attribut catergoriePizza de type Enum
 
 	public static int lastId = -1; // sera amené à donner un id unique pr chaque pizza
 
@@ -38,17 +40,19 @@ public class Pizza {
 	 * @param prix        : ex : Prix : 9,20 euros
 	 */
 
-	public Pizza(String code, String designation, double prix) {
+	public Pizza(String code, String designation, double prix, CategoriePizzaEnum categoriePizza) {
 		this.idPizza = ++lastId; // incrémentation de l'id en fonction de la liste
 		this.code = code;
 		this.designation = designation;
 		this.prix = prix;
+		this.categoriePizza = categoriePizza; // ajout dans le constructeur
+
 	}
 
 	// méthode toString
 
 	public String toString() {
-		return code + "-> " + designation + " (" + prix + ")";
+		return code + "-> " + designation + " (" + prix + ")" + " " +categoriePizza;
 		// méthode Ajout Pizza
 
 	}
@@ -62,18 +66,16 @@ public class Pizza {
 		if (CODE.length() > 3 || CODE == null) {
 
 			message = "Code non renseigné ou supérieur à 3 caractères";
-		}
-
-		if (DESIGNATION != designation || DESIGNATION == null) {
+			
+		}else if (DESIGNATION != designation || DESIGNATION == null) {
 
 			message = "Champs de désignation null ou mal renseigné";
-		}
-
-		if (prix == 0 || prix > PRIX_MAX || prix < PRIX_MIN) {
+			
+		}else if (prix == 0 || prix > PRIX_MAX || prix < PRIX_MIN) {
 
 			message = "Prix renseigné null, trop elevé ou trop bas";
-		}
-		if (message != "") {
+		}else if (message != "") {
+			
 			throw new StockageExceptionMere(message);
 		}
 	}
@@ -117,6 +119,14 @@ public class Pizza {
 
 	public static int getLastId() {
 		return lastId;
+	}
+
+	public CategoriePizzaEnum getCategoriePizza() {
+		return categoriePizza;
+	}
+
+	public void setCategoriePizza(CategoriePizzaEnum categoriePizza) {
+		this.categoriePizza = categoriePizza;
 	}
 
 }
