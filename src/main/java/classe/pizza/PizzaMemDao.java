@@ -59,21 +59,19 @@ public class PizzaMemDao implements IpizzaDao {
 
 	}
 
-	public Pizza findPizzaByCode(String codePizza) {
+	public Pizza findPizzaByCode(String codePizza) throws StockageExceptionMere {
+		
+			for (Pizza pizza : list) {
 
-		for (Pizza pizza : list) {
-
-			if (pizza.getCode().equals(codePizza.toUpperCase())) { // toUpperCase = pour entrer en minuscule sans causer
-																	// d'erreur
-
-				return pizza;
+				if (pizza.getCode().equals(codePizza.toUpperCase())) { // toUpperCase = pour entrer en minuscule sans
+																		// cause											// d'erreu
+					return pizza;
+				}
 			}
-		}
-
-		return null;
+			throw new StockageExceptionMere("la pizza n'a pas été trouvé");		
 	}
 
-	public boolean isPizzaExists(String codePizza) {
+	public boolean isPizzaExists(String codePizza) throws StockageExceptionMere {
 
 		if (findPizzaByCode(codePizza) != null) {
 
@@ -90,7 +88,7 @@ public class PizzaMemDao implements IpizzaDao {
 			list.add(pizzaNew);
 
 		} catch (StockageExceptionMere e) {
-			throw new SavePizzaException(e.getMessage() + "L'ajout de la pizza n'a pas abouti");
+			throw new SavePizzaException(e.getMessage() + " L'ajout de la pizza n'a pas abouti");
 
 		}
 
@@ -99,10 +97,9 @@ public class PizzaMemDao implements IpizzaDao {
 	public void deletePizza(String codePizzaASup) throws DeletePizzaException {
 
 		try {
+
 			Pizza piz = findPizzaByCode(codePizzaASup);
-
 			piz.CheckPizza();
-
 			list.remove(piz);
 
 		} catch (StockageExceptionMere e) {

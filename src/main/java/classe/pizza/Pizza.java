@@ -17,9 +17,9 @@ public class Pizza {
 	// attributs de la classe Pizza
 
 	public int idPizza;
-	public String code = null;
-	public String designation = null;
-	public double prix = 0;
+	public String code = "";
+	public String designation = "";
+	public Double prix = null;
 	private CategoriePizzaEnum categoriePizza; // ajout de l'attribut catergoriePizza de type Enum
 
 	public static int lastId = -1; // sera amené à donner un id unique pr chaque pizza
@@ -37,10 +37,10 @@ public class Pizza {
 	 * @param id          : identifiant unique pour chaque Pizza, ex : id : 1
 	 * @param code        : identifiant unique, ex : Code : MAR
 	 * @param designation : ex : Désignation : MARGARITTA
-	 * @param prix        : ex : Prix : 9,20 euros
+	 * @param i        : ex : Prix : 9,20 euros
 	 */
 
-	public Pizza(String code, String designation, double prix, CategoriePizzaEnum categoriePizza) {
+	public Pizza(String code, String designation, Double prix, CategoriePizzaEnum categoriePizza) {
 		this.idPizza = ++lastId; // incrémentation de l'id en fonction de la liste
 		this.code = code;
 		this.designation = designation;
@@ -52,7 +52,7 @@ public class Pizza {
 	// méthode toString
 
 	public String toString() {
-		return code + "-> " + designation + " (" + prix + ")" + " " +categoriePizza;
+		return code + "-> " + designation + " (" + prix + ")" + " " + categoriePizza;
 		// méthode Ajout Pizza
 
 	}
@@ -63,19 +63,20 @@ public class Pizza {
 
 		String message = "";
 
-		if (CODE.length() > 3 || CODE == null) {
+		if (code.length() > 3 || code.isEmpty()) {
 
 			message = "Code non renseigné ou supérieur à 3 caractères";
-			
-		}else if (DESIGNATION != designation || DESIGNATION == null) {
+		}
+		if (designation.trim().length() < 1 || designation.isEmpty()) {
 
 			message = "Champs de désignation null ou mal renseigné";
+		}
+		if (prix > PRIX_MAX || prix < PRIX_MIN) {
 			
-		}else if (prix == 0 || prix > PRIX_MAX || prix < PRIX_MIN) {
-
 			message = "Prix renseigné null, trop elevé ou trop bas";
-		}else if (message != "") {
-			
+		}
+		if (message != "") {
+
 			throw new StockageExceptionMere(message);
 		}
 	}
@@ -102,11 +103,11 @@ public class Pizza {
 		this.designation = designation;
 	}
 
-	public double getPrix() {
+	public Double getPrix() {
 		return prix;
 	}
 
-	public void setPrix(double prix) {
+	public void setPrix(Double prix) {
 		this.prix = prix;
 	}
 

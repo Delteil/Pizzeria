@@ -59,7 +59,7 @@ public class Pizzeria {
 					
 				} catch (SavePizzaException e) {
 
-					System.out.println(e);
+					System.out.println(e.getMessage());
 				}
 
 				pizzaMemDao.afficheListe();
@@ -99,7 +99,7 @@ public class Pizzeria {
 
 				} catch (UpdatePizzaException e) {
 					
-					System.out.println(e);
+					System.out.println(e.getMessage());
 				}
 
 				pizzaMemDao.afficheListe();
@@ -117,7 +117,7 @@ public class Pizzeria {
 
 				} catch (DeletePizzaException e) {
 
-					System.out.println(e);
+					System.out.println(e.getMessage());
 				}
 
 				pizzaMemDao.afficheListe();

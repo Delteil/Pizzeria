@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.StockageExceptionMere;
 import fr.pizzeria.exception.UpdatePizzaException;
 
 public interface IpizzaDao  {
@@ -33,7 +34,7 @@ public interface IpizzaDao  {
 
 	void deletePizza(String codePizza) throws DeletePizzaException;
 
-	Pizza findPizzaByCode(String codePizza);
+	Pizza findPizzaByCode(String codePizza) throws StockageExceptionMere;
 
 	boolean pizzaExists(String codePizza);
 
